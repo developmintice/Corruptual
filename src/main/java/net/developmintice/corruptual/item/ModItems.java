@@ -2,6 +2,7 @@ package net.developmintice.corruptual.item;
 
 import net.developmintice.corruptual.Corruptual;
 import net.developmintice.corruptual.item.custom.*;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
@@ -46,6 +47,13 @@ public final class ModItems {
         ItemGroupEvents.modifyEntriesEvent(CORRUPTUAL_ITEM_GROUP_KEY).register(itemGroup -> {
             itemGroup.add(ModItems.DORMANT_VESSEL);
             itemGroup.add(ModItems.DAMNED_VESSEL);
+        });
+
+        ItemTooltipCallback.EVENT.register((itemStack, tooltipContext, tooltipType, list) -> {
+            if (!itemStack.isOf(ModItems.DORMANT_VESSEL)) {
+                return;
+            }
+            list.add(Text.translatable("item.corruptual.dormant_vessel.tooltip"));
         });
     }
 }
